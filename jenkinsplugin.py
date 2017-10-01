@@ -1,8 +1,9 @@
 import shutit
 
 s = shutit.create_session('bash',loglevel='info',echo=True)
-s.login('docker run -ti centos:7 bash')
-s.send('yum install -y maven')
+s.login('docker run -ti ubuntu:16.04 bash')
+s.install('maven')
+s.send('mkdir -p /root/.m2')
 s.send_file('/root/.m2/settings.xml','''<settings>
   <pluginGroups>
     <pluginGroup>org.jenkins-ci.tools</pluginGroup>
@@ -40,6 +41,8 @@ s.send_file('/root/.m2/settings.xml','''<settings>
 </settings>''')
 s.send('mkdir -p /jenkinspluginexample')
 s.send('cd /jenkinspluginexample')
-s.send('mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create')
+s.multisend('mvn archetype:generate -Dfilter=io.jenkins.archetypes:',{'Choose archetype':'2',"""Define value for property 'artifactId'""":'imartifact1',"""Define value for property 'version'""":'','Y:':''})
+s.send('cd imartifact1')
+s.send('mvn package')
 s.pause_point('')
 s.logout()
