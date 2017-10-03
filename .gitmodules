@@ -1,0 +1,3 @@
+[submodule "graven-plugin"]
+	path = graven-plugin
+	url = https://github.com/jenkinsci/graven-plugin

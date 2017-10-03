@@ -46,3 +46,10 @@ s.send('cd imartifact1')
 s.send('mvn package')
 s.pause_point('')
 s.logout()
+
+# TODO: mvnDebug hpi:run 
+# and access on: localhost:8000
+# If you examine the mvnDebug executable, you will see that it simply sets MAVEN_DEBUG_OPTS before running the normal mvn binary, as follows:
+# MAVEN_DEBUG_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"
+# echo Preparing to Execute Maven in Debug Mode
+# env MAVEN_OPTS="$MAVEN_OPTS $MAVEN_DEBUG_OPTS" $(dirname $0)/mvn "$@"
